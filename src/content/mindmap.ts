@@ -1,0 +1,141 @@
+import type { MindSpec } from './types'
+
+export const mindForest: MindSpec[] = [
+  {
+    id: 'six-sigma',
+    children: [
+      { id: 'y-equals-fx' },
+      { id: 'variation' },
+      { id: 'belt-roles' },
+      { id: 'black-belt-role' },
+      { id: 'coaching-green' },
+      { id: 'change-management' },
+      { id: 'dmadv' },
+      {
+        id: 'dmaic',
+        children: [
+          {
+            id: 'define-phase',
+            children: [
+              { id: 'voc-ctq' },
+              { id: 'sipoc' },
+              { id: 'problem-statement' },
+              { id: 'project-charter' },
+              { id: 'copq' },
+              { id: 'qfd' },
+              { id: 'tollgate-review' },
+            ],
+          },
+          {
+            id: 'measure-phase',
+            children: [
+              { id: 'operational-definition' },
+              { id: 'data-types' },
+              { id: 'sampling' },
+              { id: 'msa' },
+              { id: 'process-capability' },
+              { id: 'dpmo-sigma' },
+              { id: 'power-sample-size' },
+              { id: 'nested-grr' },
+              { id: 'nonnormal-capability' },
+            ],
+          },
+          {
+            id: 'analyze-phase',
+            children: [
+              { id: 'fishbone' },
+              { id: 'five-whys' },
+              { id: 'pareto' },
+              { id: 'scatter' },
+              { id: 'hypothesis-testing' },
+              { id: 'regression' },
+              { id: 'fmea' },
+              { id: 'anova' },
+              { id: 'residual-diagnostics' },
+              { id: 'logistic-regression' },
+              { id: 'dfmea' },
+            ],
+          },
+          {
+            id: 'improve-phase',
+            children: [
+              { id: 'solution-selection' },
+              { id: 'piloting' },
+              { id: 'poka-yoke' },
+              { id: 'doe' },
+              { id: 'full-factorial' },
+              { id: 'fractional-factorial' },
+              { id: 'response-surface' },
+            ],
+          },
+          {
+            id: 'control-phase',
+            children: [
+              { id: 'control-charts' },
+              { id: 'control-plan' },
+              { id: 'standardization' },
+              { id: 'response-plan' },
+              { id: 'ewma-cusum' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'lean-six-sigma',
+    children: [
+      { id: 'seven-wastes' },
+      { id: 'vsm' },
+      { id: 'pull-kanban' },
+      { id: 'oee' },
+      { id: 'takt-time' },
+    ],
+  },
+  {
+    id: 'scor',
+    children: [
+      { id: 'scor-plan' },
+      { id: 'scor-source' },
+      { id: 'scor-make' },
+      { id: 'scor-deliver' },
+      { id: 'scor-return' },
+      { id: 'abc-inventory' },
+      { id: 'inventory-turns' },
+      { id: 'safety-stock' },
+      { id: 'eoq' },
+      { id: 'otif' },
+      { id: 'fill-rate' },
+      { id: 'lead-vs-cycle' },
+      { id: 'bullwhip' },
+      { id: 'iqc' },
+      { id: 'aql-ppm' },
+      { id: 'eight-d' },
+      { id: 'incoming-capability' },
+    ],
+  },
+  {
+    id: 'mbb-role',
+    children: [
+      { id: 'coaching-black' },
+      { id: 'champion-development' },
+      {
+        id: 'lss-operating-system',
+        children: [
+          { id: 'hoshin-kanri' },
+          { id: 'kpi-cascade' },
+          { id: 'governance-standard' },
+          { id: 'coaching-system' },
+          { id: 'belt-pipeline' },
+          { id: 'deployment-maturity' },
+        ],
+      },
+      {
+        id: 'project-portfolio',
+        children: [{ id: 'benefit-tracking' }],
+      },
+      { id: 'multi-site-rollout' },
+      { id: 'extended-enterprise-lss' },
+    ],
+  },
+]

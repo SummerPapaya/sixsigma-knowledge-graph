@@ -1,0 +1,310 @@
+@import 'tailwindcss';
+@import 'katex/dist/katex.min.css';
+
+@theme {
+  --font-display: 'Syne', 'Noto Sans SC', sans-serif;
+  --font-sans: 'IBM Plex Sans', 'Noto Sans SC', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #07080c;
+  --bg-2: #0d0f16;
+  --line: rgba(232, 230, 227, 0.08);
+  --text: #c8c4bc;
+  --text-h: #f4f1ea;
+  --muted: #7a776f;
+  --accent: #e8e6e3;
+  --accent-2: rgba(232, 230, 227, 0.16);
+  --ink: #07080c;
+  --graph-link: color-mix(in srgb, var(--accent) 80%, transparent);
+  --graph-link-cross: color-mix(in srgb, var(--accent) 40%, transparent);
+  --graph-label-bg: rgba(7, 8, 12, 0.88);
+  --graph-label: #f4f1ea;
+  --graph-lane: rgba(232, 230, 227, 0.035);
+}
+
+html[data-belt='white'] {
+  --accent: #e8e6e3;
+  --accent-2: rgba(232, 230, 227, 0.16);
+}
+html[data-belt='yellow'] {
+  --accent: #e8c547;
+  --accent-2: rgba(232, 197, 71, 0.16);
+}
+html[data-belt='green'] {
+  --accent: #3dcea8;
+  --accent-2: rgba(61, 206, 168, 0.16);
+}
+html[data-belt='black'] {
+  --accent: #c9a36a;
+  --accent-2: rgba(201, 163, 106, 0.16);
+}
+html[data-belt='mbb'] {
+  --accent: #b8c5d6;
+  --accent-2: rgba(184, 197, 214, 0.16);
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f3efe6;
+  --bg-2: #fffcf7;
+  --line: rgba(28, 26, 22, 0.1);
+  --text: #2a2722;
+  --text-h: #141210;
+  --muted: #5c574e;
+  --ink: #f3efe6;
+  --graph-link: color-mix(in srgb, var(--accent) 80%, transparent);
+  --graph-link-cross: color-mix(in srgb, var(--accent) 40%, transparent);
+  --graph-label-bg: rgba(243, 239, 230, 0.96);
+  --graph-label: #141210;
+  --graph-lane: rgba(28, 26, 22, 0.04);
+}
+
+html[data-theme='light'][data-belt='white'] {
+  --bg: #e0dbd2;
+  --bg-2: #bcb8b0;
+  --line: rgba(28, 26, 22, 0.14);
+  --accent: #faf7f1;
+  --accent-2: rgba(250, 247, 241, 0.35);
+  --ink: #1a1814;
+  --graph-label: #1a1814;
+  --graph-label-bg: rgba(188, 184, 176, 0.94);
+  --graph-lane: rgba(28, 26, 22, 0.06);
+}
+
+html[data-theme='light'][data-belt='white'] .drawer {
+  background: color-mix(in srgb, var(--bg-2) 96%, transparent);
+}
+html[data-theme='light'][data-belt='yellow'] {
+  --accent: #b8860b;
+  --accent-2: rgba(184, 134, 11, 0.14);
+}
+html[data-theme='light'][data-belt='green'] {
+  --accent: #0f8a6e;
+  --accent-2: rgba(15, 138, 110, 0.12);
+}
+html[data-theme='light'][data-belt='black'] {
+  --accent: #8a6a32;
+  --accent-2: rgba(138, 106, 50, 0.12);
+}
+html[data-theme='light'][data-belt='mbb'] {
+  --accent: #5c6d82;
+  --accent-2: rgba(92, 109, 130, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  cursor: var(--cursor-default, auto);
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+body {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button,
+a,
+label,
+summary,
+[role='button'],
+.atlas-main svg,
+.graph-svg {
+  cursor: var(--cursor-pointer, pointer);
+}
+
+input,
+textarea {
+  cursor: text;
+}
+
+.atlas-shell {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100svh;
+}
+
+.atlas-main {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.atlas-main.has-drawer {
+  grid-template-columns: 1fr minmax(0, 400px);
+}
+
+@media (max-width: 900px) {
+  .atlas-main.has-drawer {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(280px, 1fr) auto;
+  }
+}
+
+.drawer {
+  border-left: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 88%, transparent);
+  backdrop-filter: blur(12px);
+  min-height: 0;
+  overflow: auto;
+}
+
+@media (max-width: 900px) {
+  .drawer {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    max-height: 48vh;
+  }
+}
+
+.flip-scene {
+  perspective: 1200px;
+}
+
+.flip-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.flip-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+  position: absolute;
+  inset: 0;
+}
+
+.graph-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.graph-node-label {
+  fill: var(--graph-label);
+  stroke: none;
+  font-weight: 600;
+}
+
+.mindmap-board {
+  position: relative;
+}
+
+.mindmap-svg {
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.mindmap-svg .mind-edge {
+  fill: none;
+  stroke: var(--graph-link);
+  stroke-width: 1;
+}
+
+.mind-chip {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+}
+
+.mind-chip.is-dim {
+  opacity: 0.48;
+}
+
+.mind-chip-label {
+  border: 1.2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--bg-2);
+  color: var(--graph-label);
+  -webkit-text-fill-color: var(--graph-label);
+  padding: 7px 12px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: var(--cursor-pointer, pointer);
+}
+
+.mind-chip.is-sel .mind-chip-label {
+  background: var(--accent);
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+.mind-chip-toggle {
+  position: absolute;
+  left: -22px;
+  top: 50%;
+  display: flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--accent);
+  border-radius: 99px;
+  background: var(--bg-2);
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  transform: translateY(-50%);
+  cursor: var(--cursor-pointer, pointer);
+}
+
+.graph-svg .nodes g {
+  transition: opacity 0.45s ease;
+}
+.graph-svg .links path {
+  transition: stroke-opacity 0.45s ease, stroke 0.45s ease;
+}
+
+.node-glow {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+.formula .katex {
+  font-size: 1.05em;
+  color: var(--text-h);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent) transparent;
+}

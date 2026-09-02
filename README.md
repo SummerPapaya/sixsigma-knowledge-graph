@@ -1,5 +1,7 @@
 # SIGMA ATLAS · 六西格玛知识图谱
 
+**中文** | [English](README.en.md)
+
 中英双语、可交互的 Six Sigma 学习站：同一套知识数据驱动 **图谱 / 脑图 / 归纳 / 闪卡**。Belt 是透镜（White → Yellow → Green → Black → **Master Black**），供应链作为可叠加的工作域，而不是另一套百科。
 
 ## 本地运行
